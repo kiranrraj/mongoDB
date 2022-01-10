@@ -3,8 +3,6 @@ const path = require('path')
 require('dotenv').config({path: path.resolve(__dirname, '../.env')});
 
 const {MongoClient} = require('mongodb');
-const { mainModule } = require('process');
-const { resourceLimits } = require('worker_threads');
 const URI = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.zxusy.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
 async function databaseFn(){
 
