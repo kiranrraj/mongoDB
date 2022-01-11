@@ -52,16 +52,19 @@ const getTask = async (req, res) => {
 };
 
 const updateTask = async (req, res) => {
-    try {
-        const task = await Task.updateOne({$set: {task_desc: req.body.task_desc, completed: req.body.completed}});
 
+    try {
+        const task = await Task.findOneAndUpdate({_id: req.params.id}, req.body,{
+            new: true, runValidators: true
+        });
         if(!task){
-            let message = {message : `Task with id ${req.params.id} not found`}
+            message = {message : `Task with id ${req.params.id} not found`};
             return res.status(404).json(message);
         }
         res.status(200).json(task);
     } catch (error) {
-        console.error(error)
+        console.error(error);
+        return res.status(500).json(error.message);
     }
 
 };
